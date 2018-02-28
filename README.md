@@ -1,5 +1,4 @@
 
 1. `conda env create -f env.yml`
-2. Make sure you have `asio4all` (Windows only)
-3. `activate isotrack`
-4. `python exp.py`
+2. `activate isotrack`
+3. `python exp.py`
