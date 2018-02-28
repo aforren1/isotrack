@@ -2,10 +2,10 @@ from force_handle import ForceHandle
 from toon.input import MultiprocessInput as MpI
 from toon.input.clock import mono_clock
 import numpy as np
-np.set_printoptions(precision=5, suppress=True)
+np.set_printoptions(precision=4, suppress=True)
 
 if __name__ == '__main__':
-    device = MpI(ForceHandle, sampling_frequency=200)
+    device = MpI(ForceHandle, clock=mono_clock.get_time)
 
     t0 = mono_clock.get_time()
     t1 = t0 + 10
