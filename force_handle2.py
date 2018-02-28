@@ -12,7 +12,7 @@ class ForceHandle(BaseInput):
     
     @staticmethod
     def data_shapes(**kwargs):
-        return [[5, kwargs.get('sampling_frequency')/60]]
+        return [[5, int(kwargs.get('sampling_frequency', 240)/60.0)]]
     
     @staticmethod
     def data_types(**kwargs):
