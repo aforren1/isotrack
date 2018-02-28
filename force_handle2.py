@@ -4,7 +4,6 @@ from toon.input.base_input import BaseInput
 import nidaqmx
 from nidaqmx.constants import AcquisitionType, TerminalConfiguration
 from nidaqmx.stream_readers import AnalogMultiChannelReader
-from nidaqmx.errors import DaqError
 
 class ForceHandle(BaseInput):
     @staticmethod
