@@ -43,15 +43,16 @@ class Pursuit(StateMachine):
         self.frames_on_target = 0
     
     def setup_visuals(self):
-        self.target = visual.Circle(self.win, size=0.1, fillColor=[0, 0, 0],
+        self.target = visual.Circle(self.win, size=0.05, fillColor=[0, 0, 0],
                                     pos=(0, 0), autoDraw=True, autoLog=False,
                                     name='target')
-        self.player = visual.Circle(self.win, size=0.05, fillColor=[1, 1, 1],
+        self.player = visual.Circle(self.win, size=0.025, fillColor=[1, 1, 1],
                                     pos=(0, 0), autoDraw=True, autoLog=False,
                                     name='player')
         self.post_text = visual.TextStim(self.win, text='Spacebar to start.',
                                          pos=(0, 0.4), units='height',
                                          color=[1, 1, 1],
+                                         height=0.1,
                                          alignHoriz='center', alignVert='center',
                                          name='post_text', autoLog=False,
                                          wrapWidth=2)
@@ -79,7 +80,7 @@ class Pursuit(StateMachine):
         return self.total_frames > 500
     
     def draw_time_on_target(self):
-        self.post_text.setText('Percentage: ' + str(100*round(self.frames_on_target/self.total_frames, 3)))
+        self.post_text.setText('Percentage: ' + str(round(100*(self.frames_on_target/self.total_frames), 0)))
         self.post_text.autoDraw = True
     
     def start_countdown(self):
