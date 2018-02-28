@@ -1,0 +1,9 @@
+ai0 - 10v noise
+- ai1 - -y is +, +y is -, seems most sensitive to y (and rotation?)
+ai2 - sits high, most sensitive to -z?
+- ai3 - x and y are sensitive (and +x is +, +y is +)
+- ai4 - y seems most sensitive (and y+ is +)
+- ai5 - all directions sensitive, +x is - and +y is +
+ai6 - gradually increasing noise to 0, seems insensitive
+ai7 - gradually increasing noise to 0, seems insensitive
+ai8 - tops out at 11 v
