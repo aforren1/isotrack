@@ -32,7 +32,8 @@ class Pursuit(StateMachine):
                                  units='height',
                                  allowGUI=False,
                                  colorSpace='rgb',
-                                 color=(-1, -1, -1))
+                                 color=(-1, -1, -1),
+                                 waitBlanking=False)
         self.win.recordFrameIntervals = True
 
         self.setup_visuals()
@@ -70,9 +71,9 @@ class Pursuit(StateMachine):
     
     def update_target_color_and_count(self):
         self.total_frames += 1
-        if self.player.contains(self.target.pos):
+        if self.target.contains(self.player.pos):
             self.frames_on_target += 1
-            self.target.fillColor = [-0.2, 0.8, -0.1]
+            self.target.fillColor = [-0.27, 0.47, 0.05]
         else:
             self.target.fillColor = [0, 0, 0]
     
