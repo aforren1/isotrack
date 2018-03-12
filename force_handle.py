@@ -39,7 +39,7 @@ class ForceHandle(BaseInput):
         # y may be 3 - 4 (ai1 - ai9)
         self._device = nidaqmx.Task()
         self._device.ai_channels.add_ai_voltage_chan(','.join(self.channels))
-        self._reader = AnalogMultiChannelReader(self._device._in_stream)
+        self._reader = AnalogMultiChannelReader(self._device.in_stream)
         self._device.start()
         return self
 
