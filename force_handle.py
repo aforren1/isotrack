@@ -13,7 +13,7 @@ class ForceHandle(BaseInput):
 
     @staticmethod
     def data_shapes(**kwargs):
-        return [[8]]  # presumably x, y, z, rx, ry, rz
+        return [[6]]  # presumably x, y, z, rx, ry, rz
 
     @staticmethod
     def data_types(**kwargs):
@@ -30,11 +30,13 @@ class ForceHandle(BaseInput):
         dims2[0] *= 2
         self._data_buffer = np.full(dims, np.nan)
         self._tmp_buffer = np.full(dims2, np.nan)
+        #self._calib = np.array((-0.020559401, -0.006341148, 0.043048497, -3.631807327, 0.031158151, 3.681540251,
+        #                        -0.051654425, 4.316632271, 0.013176571, -2.104834795, 0.019042328, -2.13189888))
 
     def __enter__(self):
         self._device_name = nidaqmx.system.System.local().devices[0].name
         self.channels = [self._device_name + '/ai' + str(n) for n in
-                         [0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13, 6, 14, 7, 15]] 
+                         [0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13]]
         # x is 7 - 8 (ai3 - ai11)
         # y may be 3 - 4 (ai1 - ai9)
         self._device = nidaqmx.Task()
@@ -46,6 +48,7 @@ class ForceHandle(BaseInput):
     def read(self):
         self._reader.read_one_sample(self._tmp_buffer)
         time = self.clock()
+        #self._tmp_buffer *= self._calib
         self._data_buffer = self._tmp_buffer[::2] - self._tmp_buffer[1::2]
         while self.clock() < self.t1:
             pass
