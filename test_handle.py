@@ -3,14 +3,14 @@ from toon.input import MultiprocessInput as MpI
 from toon.input.clock import mono_clock
 import numpy as np
 import matplotlib.pyplot as plt
-np.set_printoptions(precision=4, suppress=True)
+np.set_printoptions(precision=4, suppress=True, linewidth=150)
 
 if __name__ == '__main__':
     lst = list()
-    device = MpI(ForceHandle, clock=mono_clock.get_time, sampling_frequency=200)
+    device = MpI(ForceHandle, clock=mono_clock.get_time, sampling_frequency=250)
     #device = ForceHandle(clock=mono_clock.get_time)
     t0 = mono_clock.get_time()
-    t1 = t0 + 15
+    t1 = t0 + 45
     t2 = 0
     time2 = 0
     with device as dev:

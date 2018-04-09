@@ -27,29 +27,25 @@ class ForceHandle(BaseInput):
         self._time = None
         dims = ForceHandle.data_shapes(**kwargs)[0]
         dims2 = dims.copy()
-        dims2[0] *= 2
         self._data_buffer = np.full(dims, np.nan)
         self._tmp_buffer = np.full(dims2, np.nan)
-        #self._calib = np.array((-0.020559401, -0.006341148, 0.043048497, -3.631807327, 0.031158151, 3.681540251,
-        #                        -0.051654425, 4.316632271, 0.013176571, -2.104834795, 0.019042328, -2.13189888))
 
     def __enter__(self):
         self._device_name = nidaqmx.system.System.local().devices[0].name
         self.channels = [self._device_name + '/ai' + str(n) for n in
-                         [0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13]]
+                         [1, 2, 3, 4, 5, 6]]
         # x is 7 - 8 (ai3 - ai11)
         # y may be 3 - 4 (ai1 - ai9)
         self._device = nidaqmx.Task()
-        self._device.ai_channels.add_ai_voltage_chan(','.join(self.channels))
+        self._device.ai_channels.add_ai_voltage_chan(','.join(self.channels),
+                                                     terminal_config=TerminalConfiguration.DIFFERENTIAL)
         self._reader = AnalogMultiChannelReader(self._device.in_stream)
         self._device.start()
         return self
 
     def read(self):
-        self._reader.read_one_sample(self._tmp_buffer)
+        self._reader.read_one_sample(self._data_buffer)
         time = self.clock()
-        #self._tmp_buffer *= self._calib
-        self._data_buffer = self._tmp_buffer[::2] - self._tmp_buffer[1::2]
         while self.clock() < self.t1:
             pass
         self.t1 = self.clock() + self.period
