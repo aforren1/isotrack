@@ -94,12 +94,9 @@ current_data_view = None
 
 def update():
     global current_data_view, logging, log_file_name, centering, please_center
-    if args.demo:
-        data = np.random.random((6, ForceHandle.data_shapes()[0][0]))
-    else:
-        ts, data = dev.read()
-        if data is None:
-            return
+    ts, data = dev.read()
+    if data is None:
+        return
     if please_center:
         please_center = False
         centering = np.median(data, axis=0)
